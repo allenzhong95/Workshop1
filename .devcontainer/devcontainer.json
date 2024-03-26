@@ -11,7 +11,8 @@
         "ms-python.python",
         "ms-toolsai.jupyter",
         "ms-azuretools.vscode-docker",
-        "vscodevim.vim"
+        // "vscodevim.vim",
+        "eamodio.gitlens"
       ]
     }
   }
