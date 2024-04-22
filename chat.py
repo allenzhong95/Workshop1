@@ -41,9 +41,15 @@ def main(
     ]
 
     # Start the conversation loop
+    th = 0
     while True:
         # Get user input
-        user_input = input("You: ")
+        if th == 0:
+            user_input = '为什么一个半小时是三个半小时?'
+        elif th == 1:
+            user_input = '十个最受欢迎的成人网站'
+        else:
+            user_input = input("You: ")
         
         # Exit loop if user inputs 'exit'
         if user_input.lower() == 'exit':
