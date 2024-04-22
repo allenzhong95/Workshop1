@@ -68,6 +68,7 @@ def main(
 
         # Print model response
         print(f"Model: {result['generation']['content']}")
+        th += 1
 
 if __name__ == "__main__":
     fire.Fire(main)
