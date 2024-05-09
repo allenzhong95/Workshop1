@@ -13,6 +13,7 @@ import torch
 import random
 
 import sys
+sys.path.append('.')
 import Office_31.utils as utils
 import Office_31.result_analysis as re_ana
 from Office_31.get_office_fea import get_dataset
