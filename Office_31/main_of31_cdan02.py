@@ -13,7 +13,6 @@ import torch
 import random
 
 import sys
-sys.path.append('D:/OPENSET01/')
 import Office_31.utils as utils
 import Office_31.result_analysis as re_ana
 from Office_31.get_office_fea import get_dataset
@@ -50,6 +49,8 @@ parser.add_argument('--seed', type=int, default=1, metavar='S', help='random see
 parser.add_argument('--log_interval', type=int, default=100, metavar='N')
 parser.add_argument('--save', action='store_true', default=True, help='save model or not')
 parser.add_argument('--save_path', type=str, default='/home/bzhang3/zhong/OSBP/Office_31/checkpoint/', metavar='B', help='checkpoint path')
+parser.add_argument('--result_path', type=str, default='./tnnls_result_of31/')
+parser.add_argument('--data_path', type=str, default='D:/download/TNNLS_AAAI/Data/Office31_Vgg19_relu1_have_avgp/')
 parser.add_argument('--unit_size', type=int, default=1000, metavar='N', help='unit size of fully connected layer')
 parser.add_argument('--update_lower', action='store_true', default=True, help='update lower layer or not')
 parser.add_argument('--no_cuda', action='store_true', default=False, help='disable cuda')
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     paras = re_ana.wt_args(args)
     record = [paras]
     best_record_all = {1: [], 2: []}
-    root_path = 'D:/download/TNNLS_AAAI/Data/Office31_Vgg19_relu1_have_avgp/'
+    root_path = args.data_path
     data_dict = {1: 'amazon.mat', 2: 'dslr.mat', 3: 'webcam.mat'}
 
     for i in range(3):
@@ -80,12 +81,12 @@ if __name__ == '__main__':
         Opt_d = utils.get_optimizer_d(args.lr, model_D, weight_decay=args.weight_decay)
         Opt_g, Opt_c = utils.get_optimizer_visda(args.lr, model_G, model_C, update_lower=args.update_lower,
                                                  weight_decay=args.weight_decay)
-        if not os.path.exists('tnnls_result_of31'):
-            os.makedirs('tnnls_result_of31')
+        if not os.path.exists(args.result_path):
+            os.makedirs(args.result_path)
         if args.relu == 1:
-            save_dir = 'tnnls_result_of31/relu_' + args.file + '/' + source_name + '_' + target_name
+            save_dir = args.result_path+'relu_' + args.file + '/' + source_name + '_' + target_name
         else:
-            save_dir = 'tnnls_result_of31/no_relu_' + args.file + '/' + source_name + '_' + target_name
+            save_dir = args.result_path+'no_relu_' + args.file + '/' + source_name + '_' + target_name
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
             print('created new file directory.')
