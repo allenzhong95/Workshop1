@@ -5,12 +5,12 @@ python trainer_osda_fea_01.py --data 3 --alpha 1 --beta 0.5 --batch-size 128 --l
 
 from __future__ import print_function
 import argparse
-import numpy as np
 import os
 import time
+import random
 import matplotlib.pyplot as plt
 import torch
-import random
+import numpy as np
 
 import sys
 sys.path.append('.')
@@ -49,7 +49,7 @@ parser.add_argument('--init', type=int, default=0)
 parser.add_argument('--seed', type=int, default=1, metavar='S', help='random seed (default: 1)')
 parser.add_argument('--log_interval', type=int, default=100, metavar='N')
 parser.add_argument('--save', action='store_true', default=True, help='save model or not')
-parser.add_argument('--save_path', type=str, default='/home/bzhang3/zhong/OSBP/Office_31/checkpoint/', metavar='B', help='checkpoint path')
+parser.add_argument('--save_path', type=str, default='/checkpoint/')
 parser.add_argument('--result_path', type=str, default='./tnnls_result_of31/')
 parser.add_argument('--data_path', type=str, default='D:/download/TNNLS_AAAI/Data/Office31_Vgg19_relu1_have_avgp/')
 parser.add_argument('--unit_size', type=int, default=1000, metavar='N', help='unit size of fully connected layer')
@@ -73,7 +73,7 @@ if __name__ == '__main__':
         target_name = data_dict[int(args.data[1])]
         source_dataset, target_dataset = get_dataset(root_path, source_name, target_name)
         dt_train = torch.utils.data.DataLoader(source_dataset, batch_size=args.batch_size, shuffle=True, num_workers=0)
-        dt_test = torch.utils.data.DataLoader(target_dataset, batch_size=args.batch_size, shuffle=True, num_workers=0)
+        dt_test = torch.utils.data.DataLoader(target_dataset, batch_size=args.batch_size, shuffle=False, num_workers=0)
 
         model_G, model_C = utils.get_model(args.net, num_class=args.Num_class, unit_size=args.unit_size, init=args.init)
         print(model_G, '\n', model_C)
