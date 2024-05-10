@@ -177,7 +177,7 @@ def train(num_epoch, G, C, D, opt_g, opt_c, opt_d, random_layer, dataset_train, 
         loss_record[1].append(np.array(loss_epoch[1]).mean())
         loss_record[2].append(np.array(loss_epoch[2]).mean())
 
-        if args.show == 1:
+        if int(args.show) == 1:
             plt.cla()
             plt.subplot(221)
             plt.title("args.data:"+str(args.data[0])+'_'+str(args.data[1]))
@@ -201,6 +201,8 @@ def train(num_epoch, G, C, D, opt_g, opt_c, opt_d, random_layer, dataset_train, 
 
 
 def test(ep, G, C, dataset_test, result_rc, best_re, best_re2, num_class, args):
+    if ep % 50 != 0:
+        return 0
     G.eval()
     C.eval()
     correct = 0
@@ -237,8 +239,8 @@ def test(ep, G, C, dataset_test, result_rc, best_re, best_re2, num_class, args):
             best_re2['os_'] = result_rc['os_'][-1]
             best_re2['os_star'] = result_rc['os_star'][-1]
             best_re2['unknown'] = result_rc['unknown'][-1]
-    # print('\nTest set including unknown classes:  Accuracy: {}/{} ({:.0f}%)({:.4f}%){}\n'.format(
-    #     correct, size, 100. * correct / size, result_rc['os_'][-1], result_rc['os_star'][-1]))
-    # print("os:{:.4f}, os*:{:.4f}, unkown:{:.4f}".format(result_rc['os_'][-1], result_rc['os_star'][-1], per_class_acc[-1]))
-    # print("best: os:{:.4f}, os*:{:.4f}".format(best_re['os_'], best_re['os_star']))
-    # print("best: os:{:.4f}, os*:{:.4f}".format(best_re2['os_'], best_re2['os_star']))
+    print('\nTest set including unknown classes:  Accuracy: {}/{} ({:.0f}%)({:.4f}%){}\n'.format(
+        correct, size, 100. * correct / size, result_rc['os_'][-1], result_rc['os_star'][-1]))
+    print("os:{:.4f}, os*:{:.4f}, unkown:{:.4f}".format(result_rc['os_'][-1], result_rc['os_star'][-1], per_class_acc[-1]))
+    print("best: os:{:.4f}, os*:{:.4f}".format(best_re['os_'], best_re['os_star']))
+    print("best: os:{:.4f}, os*:{:.4f}".format(best_re2['os_'], best_re2['os_star']))

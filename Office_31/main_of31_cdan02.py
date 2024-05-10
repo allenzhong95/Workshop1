@@ -68,7 +68,7 @@ if __name__ == '__main__':
     root_path = args.data_path
     data_dict = {1: 'amazon.mat', 2: 'dslr.mat', 3: 'webcam.mat'}
 
-    for i in range(3):
+    for i in range(1):
         source_name = data_dict[int(args.data[0])]
         target_name = data_dict[int(args.data[1])]
         source_dataset, target_dataset = get_dataset(root_path, source_name, target_name)
