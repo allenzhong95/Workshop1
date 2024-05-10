@@ -115,7 +115,7 @@ def train(num_epoch, G, C, D, opt_g, opt_c, opt_d, random_layer, dataset_train, 
                 #     loss_od = -1 * loss_od
                 loss_od = F.relu(args.alpha * loss_odt - args.gamma * loss_ods + args.beta)
                 # loss_od = F.relu(args.alpha * loss_odt - args.beta * loss_ods + torch.tensor(0.02))
-            print('loss_od', loss_od)
+            # print('loss_od', loss_od)
 
             p = 1.0
             C.set_lambda(p)
